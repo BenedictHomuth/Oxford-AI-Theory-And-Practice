@@ -1,0 +1,16 @@
+version: '3.9'
+name: "oxford-env"
+
+services:
+  python_notebook:
+    image: oxford
+    build:
+      dockerfile: Dockerfile
+    restart: always
+    hostname: jupyter
+    ports:
+     - 1337:1337
+    command: > 
+      /bin/bash -c "conda init bash & jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=1337 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.password=''"
+    volumes:
+      - ../notebooks:/opt/notebooks:rw
